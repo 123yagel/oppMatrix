@@ -6,7 +6,7 @@ private:
 
 	int m_m;
 	int m_n;
-	float *m_mat = NULL;
+	double *m_mat = nullptr;
 
 public:
 	
@@ -16,7 +16,7 @@ public:
 	*  The output: --------
 	*  The function operation: ----------
 	*************************************************************************/
-	MyMatrix(int m = 2, int n = 2, float def_value = 0);
+	MyMatrix(int m = 2, int n = 2, double def_value = 0);
 
 	/*************************************************************************
 	*  Function name: MyMatrix
@@ -65,7 +65,7 @@ public:
 	int getN();
 
 	// operator[][] can throw "out of bounds".
-	// float& operator[](const int m, const int n);
+	// double& operator[](const int m, const int n);
 	// that's not so simple to implememt: needed proxy object:..
 
 	// so this isn't the real line in the .h file.
@@ -101,7 +101,7 @@ public:
 
 	MyMatrix operator-(); // unary minus: new_mat = - old_mat
 						  // equal to: (-1) * mat
-	MyMatrix operator*(float float_const);
+	MyMatrix operator*(double float_const);
 
 	// the opposite operator* with scalar, like 3*Mat, is non-member operator, out of the class.
 	// TODO: maybe it can be inside somehow?
@@ -119,5 +119,6 @@ public:
 };
 
 
-//what is it and way is it here?
-MyMatrix operator*(float float_const, MyMatrix& mat);
+// 7 * mat <==> mat * 7
+// inline, so implementaion here
+MyMatrix inline operator*(double float_const, MyMatrix& mat) { return mat * float_const; }
