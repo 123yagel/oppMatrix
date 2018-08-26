@@ -1,7 +1,7 @@
 //#include "stdafx.h"
 #include "MyMatrix.h"
 #include <iostream>
-
+#include <string>
 using namespace std;
 
 
