@@ -1,16 +1,24 @@
 #pragma once
  
 #define MAX_SIZE 10
+#include <iostream>
 
 class MyMatrix
 {
 
 private:
 
-	int m_m;
-	int m_n;
-	double** m_matrix = nullptr;
-// TODO: make it one alocation, one big array in size m*n, update code all over the files, dtor
+	int m_m; // rows
+	int m_n; // colunms
+	double* m_matrix = nullptr;
+	// the sizes is known.
+	// so the size is m * n
+	// mat[m][n]
+	// for example
+	// [ 1 2 3 4]
+	// <==>
+	// mat[0] = [1 2], mat[1] = [3 4]
+
 public:
 	
 	/*************************************************************************
@@ -67,29 +75,21 @@ public:
 	*  The function operation: returns the addition of 2 matrices
 	*************************************************************************/
 
-// TODO: move the code to .cpp, add decomontation
+// helper object for the [][] operator. transperent to the programer
 	class Proxy {
-	public:
-		Proxy(double* array, int size) : _array(array), _size(size) { }
-
-		double operator[](int index) {
-			if (index >= _size)
-				throw string("out of bounds");
-			return _array[index];
-		}
 	private:
-		double* _array;
-		int _size;
+		double* m_array;
+		int m_size;
+	public:
+		Proxy(double* array, int size) : m_array(array), m_size(size) { }
+		double& operator[](int index);
 	};
 
+
+	// TODO: doc..
 	Proxy operator[](const int rowIndex) const;
-	// that's not so simple to implememt: needed proxy object:..
-
-	// so this isn't the real line in the .h file.
-	// https://stackoverflow.com/questions/6969881/operator-overload
-
-
-// TODO: add description: what can be thrown (as string("error"))
+	
+// TODO: add description: what can be thrown (as string("error")) for all operators
 	// matrix addition, substruction and multiplication can throw "dimensions not agree".
 	
 	/*************************************************************************
@@ -119,15 +119,11 @@ public:
 	
 	MyMatrix operator*(MyMatrix& mat2);
 
-	// TODO: replace with [][] in the proxy
-	void setOneElement(const double element, int i, int j);
-
 	MyMatrix operator*(double float_const);
 
-	// the opposite operator* with scalar, like 3*Mat, is non-member operator, out of the class.
-	// TODO: maybe it can be inside somehow?
-	// https://stackoverflow.com/questions/14482380/multiplying-an-object-with-a-constant-from-left-side
-
+	friend inline MyMatrix operator*(double float_const, MyMatrix& mat) { return mat * float_const; }
+	// 7 * mat <==> mat * 7
+	// inline, so implementaion here
 
 	MyMatrix& operator=(MyMatrix& mat2);  // the return value is needed in a = (b = c);
 	
@@ -136,12 +132,7 @@ public:
 	bool operator==(MyMatrix& mat2);
 	
 	// TODO: code it :)
-	friend std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print);  // print to output stream.
+	 friend std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print);  // print to output stream.
 										// the return is for case like: cout << 1 << 2;
 										// that equal to (cout << 1) << 2
 };
-
-
-// 7 * mat <==> mat * 7
-// inline, so implementaion here
-MyMatrix inline operator*(double float_const, MyMatrix& mat) { return mat * float_const; }

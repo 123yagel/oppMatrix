@@ -111,7 +111,7 @@ void UserMenu::setMatrix()
 		{
 			cout << "Enter " << i << "," << j << " element=";
 			cin >> element ;
-			newMatrix.setOneElement(element, i, j);
+			newMatrix[i][j] = element;
 		}
 	cout << endl;
 }
