@@ -5,5 +5,7 @@ public:
 	UserMenu();
 	~UserMenu();
 	void run();
+	int printMenu();
+	void setMatrix();
 };
 
