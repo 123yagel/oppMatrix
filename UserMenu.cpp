@@ -2,7 +2,7 @@
 #include "UserMenu.h"
 #include "MyMatrix.h"
 #include <iostream>
-
+#include <string>
 using namespace std;
 // TODO: make a menu :)
 UserMenu::UserMenu()
