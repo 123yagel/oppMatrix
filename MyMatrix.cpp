@@ -5,8 +5,7 @@
 using namespace std;
 
 
-MyMatrix::MyMatrix (int m, int n)  :m_m(m), m_n(n)
-	//double def_value)
+MyMatrix::MyMatrix (int m, int n, double def_value)  :m_m(m), m_n(n)
 {
 	m_matrix = new double*[m];
 	for (int i = 0; i < m; i++)
@@ -14,7 +13,7 @@ MyMatrix::MyMatrix (int m, int n)  :m_m(m), m_n(n)
 		m_matrix[i] = new double[n];
 		for (int j = 0; j < m; j++)
 		{
-			m_matrix[i][j] = 0;
+			m_matrix[i][j] = def_value;
 		}
 	}
 }
@@ -32,10 +31,6 @@ MyMatrix::MyMatrix(const MyMatrix& myMat)
 		}
 	}
 }
-
-//MyMatrix::MyMatrix()
-//{
-//}
 
 
 MyMatrix::~MyMatrix()
