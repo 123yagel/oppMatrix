@@ -21,52 +21,40 @@ void UserMenu::run()
 
 		switch (printMenu())
 		{
+			
+			//add
 		case 1:
 			
 			setMatrix();
 			break;
-
+			//sub
 		case 2:
 			break;
-
+			//multi
 		case 3:
 
-			/*
-			int num, rows, columns, newRows, newColumns;
-			cout << "How many matrices do you want to multiply?" << endl;
-			cin >> num;
-			cout << "What is the size of the matrices you want to multiply?" << endl;
-			for (int i = 0; i < num; i++)
-			{
-
-				cout << "matrix" << i + 1 << " - rows: ";
-				cin >> rows;
-				cout << " columns: ";
-				cin >> columns;
-				if (1)
-					throw string("error math size of matrices");
-				newRows = rows;
-			}
-			*/
+			
 			break;
-
+			scalar multi
 		case 4:
 			break;
-
+			//compare
 		case 5:
 			break;
-
+			//print
 		case 6: cout << "deleteing cars" << endl;
 			break;
-
+			//find value
 		case 7:
 			break;
-
+			
+			//exit
 		case 8:
 			cout << "exiting..." << endl;
 			return;
-			// break;
+			break;
 
+			
 		default:
 			// another chance
 			break;
@@ -78,13 +66,13 @@ int UserMenu::printMenu()
 {
 	cout << endl;
 	cout << "Choose action:" << endl;
-	cout << "    1: addition two or more matrices" << endl;
-	cout << "    2: subtruction two or more matrices" << endl;
-	cout << "    3: multiplication two or more matrices" << endl;
-	cout << "    4: CarsFromToPrices" << endl;
-	cout << "    5: printCar" << endl;
-	cout << "    6: delete all Cars" << endl;
-	cout << "    7: printAll" << endl;
+	cout << "    1: add two matrices" << endl;
+	cout << "    2: subtract two matrices" << endl;
+	cout << "    3: multiply two matrices" << endl;
+	cout << "    4: multiply by scalar" << endl;
+	cout << "    5: compare two matrices" << endl;
+	cout << "    6: print matrix" << endl;
+	cout << "    7: find value in a matrix" << endl;
 	cout << "    8: exit" << endl;
 	cout << ">>";
 	int number;
