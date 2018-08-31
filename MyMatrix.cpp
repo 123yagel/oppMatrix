@@ -11,6 +11,16 @@ MyMatrix::MyMatrix (int m, int n, double def_value)  :m_m(m), m_n(n)
 	std::fill_n(m_matrix, m*n, def_value);
 }
 
+/*
+MyMatrix::MyMatrix()
+{
+	m_m = 2;
+	m_n = 2;
+	m_matrix = new double[4];
+	std::fill_n(m_matrix, 4, 0);
+}
+*/
+
 MyMatrix::MyMatrix(const MyMatrix& myMat)
 {
 	m_matrix = new double[myMat.m_n * myMat.m_m];
@@ -61,7 +71,7 @@ MyMatrix MyMatrix::operator*(MyMatrix & mat2)
 		throw string("not suitable matrix sizes for matrix multiplication");
 	//we need to cheak the size of the matrix that we want to multiply by get or get it as argument of the operator
 	
-	MyMatrix newMat(m_m, mat2.m_n);
+	MyMatrix newMat(m_m, mat2.m_n, 0);
 	for (int i = 0; i < m_m; i++)
 	{
 		for (int j = 0; j < m_n; j++)
@@ -128,6 +138,8 @@ std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print)
 	fout << "[ ";
 	for (int i = 0; i < mat2print.m_m; i++)
 	{
+		if (i > 0)
+			fout << "  ";
 		for (int j = 0; j < mat2print.m_n; j++)
 		{
 			fout << mat2print[i][j] << " ";

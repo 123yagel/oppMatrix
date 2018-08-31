@@ -2,6 +2,7 @@
  
 #define MAX_SIZE 10
 #include <iostream>
+#include <vector>
 
 class MyMatrix
 {
@@ -26,7 +27,8 @@ public:
 	*  The input: size of the matrix, default value, no input = def ctor
 	*  The output: new MyMatrix object
 	*************************************************************************/
-	MyMatrix(int m = 2, int n = 2, double def_value = 0);
+	MyMatrix(int m=2 , int n=2 , double def_value =0);
+	//MyMatrix();
 
 	// MyMatrix(int m, int n, bool rand);
 	// TODO: maybe code it?

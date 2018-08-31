@@ -1,8 +1,9 @@
 //#include "stdafx.h"
 #include "UserMenu.h"
-#include "MyMatrix.h"
+
 #include <iostream>
 #include <string>
+
 using namespace std;
 // TODO: make a menu :)
 UserMenu::UserMenu()
@@ -17,25 +18,36 @@ UserMenu::~UserMenu()
 void UserMenu::run()
 {
 	while (true) {
-
-
 		switch (printMenu())
 		{
-			
 			//add
 		case 1:
-			
-			setMatrix();
+		{
+			int num;
+			MyMatrix result;
+			cout << "how many matrics do you want to add? ";
+			cin >> num;
+			if (num < 1)
+				throw string("invalid number of matrix");
+			cout << "here 1";
+			MyMatrix *matToCalucate = new MyMatrix[num];
+			setSomeMatrix(num, matToCalucate);
+			cout << "here 2";
+			for (int i = 0; i < num - 1; i++)
+			{
+				result = matToCalucate[i] + matToCalucate[i + 1];
+			}
+			cout << result;
+			/*
+			*/}
 			break;
 			//sub
 		case 2:
 			break;
 			//multi
 		case 3:
-
-			
 			break;
-			scalar multi
+			//scalar multi
 		case 4:
 			break;
 			//compare
@@ -53,8 +65,6 @@ void UserMenu::run()
 			cout << "exiting..." << endl;
 			return;
 			break;
-
-			
 		default:
 			// another chance
 			break;
@@ -80,7 +90,7 @@ int UserMenu::printMenu()
 	return number;
 }
 
-void UserMenu::setMatrix()
+MyMatrix UserMenu::setMatrix()
 {
 	int rows, columns;
 	double element;
@@ -92,7 +102,7 @@ void UserMenu::setMatrix()
 		throw string("invalid size, negative or zero");
 	if (rows > MAX_SIZE || columns > MAX_SIZE)
 		throw string("invalid size, bigger than the maximum");
-	MyMatrix newMatrix(rows, columns);
+	MyMatrix newMatrix(rows, columns, 0);
 	cout << "please write the matrix:" << endl;
 	for (int i=0 ; i< rows ;i++)
 		for (int j = 0; j < columns; j++)
@@ -101,5 +111,21 @@ void UserMenu::setMatrix()
 			cin >> element ;
 			newMatrix[i][j] = element;
 		}
-	cout << endl;
+	return newMatrix;
 }
+
+void UserMenu::setSomeMatrix(int num, MyMatrix matArr[])
+{
+	int i = 2, repeat = 1;
+	cout << "for the matrix number 1 :" << i << ";" << endl;
+	matArr[0] = setMatrix();
+	while (repeat == 1)
+	{
+		cout << "for the matrix number " << i << ":" << endl;
+		matArr[i - 1] = setMatrix();
+		cout << " press 1 for another matrix, 0 for end" << endl;
+		cin >> repeat;
+		i++;
+	}
+}
+

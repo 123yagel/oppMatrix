@@ -1,4 +1,10 @@
+
 #pragma once
+#include "MyMatrix.h"
+
+
+class MyMatrix;
+
 class UserMenu
 {
 public:
@@ -6,6 +12,7 @@ public:
 	~UserMenu();
 	void run();
 	int printMenu();
-	void setMatrix();
+	MyMatrix setMatrix();
+	void setSomeMatrix(int num, MyMatrix[]);
 };
 
