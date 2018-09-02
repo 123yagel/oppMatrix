@@ -1,3 +1,28 @@
 ﻿  main.cpp
+main.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  UserMenu.cpp
+UserMenu.cpp(32): warning C4018: '<': signed/unsigned mismatch
+UserMenu.cpp(34): warning C4018: '<': signed/unsigned mismatch
+UserMenu.cpp(192): warning C4018: '<': signed/unsigned mismatch
+UserMenu.cpp(194): warning C4018: '<': signed/unsigned mismatch
+UserMenu.cpp(183): warning C4101: 'element': unreferenced local variable
+  MyMatrix.cpp
+MyMatrix.cpp(86): warning C4018: '<': signed/unsigned mismatch
+MyMatrix.cpp(88): warning C4018: '<': signed/unsigned mismatch
+MyMatrix.cpp(90): warning C4018: '<': signed/unsigned mismatch
+MyMatrix.cpp(133): warning C4018: '<': signed/unsigned mismatch
+MyMatrix.cpp(137): warning C4018: '<': signed/unsigned mismatch
+MyMatrix.cpp(148): warning C4018: '>=': signed/unsigned mismatch
+MyMatrix.cpp(155): warning C4018: '>=': signed/unsigned mismatch
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\include\xutility(2436): warning C4996: 'std::copy_n::_Unchecked_iterators::_Deprecate': Call to 'std::copy_n' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\include\xutility(2436): note: see declaration of 'std::copy_n::_Unchecked_iterators::_Deprecate'
+  MyMatrix.cpp(23): note: see reference to function template instantiation '_OutIt *std::copy_n<double*,unsigned int,double*>(_InIt,_Diff,_OutIt)' being compiled
+          with
+          [
+              _OutIt=double *,
+              _InIt=double *,
+              _Diff=unsigned int
+          ]
+  Generating Code...
   oopMatrix.vcxproj -> C:\Users\Yagel\Documents\GitHub\oppMatrix\Debug\oopMatrix.exe
   oopMatrix.vcxproj -> C:\Users\Yagel\Documents\GitHub\oppMatrix\Debug\oopMatrix.pdb (Partial PDB)

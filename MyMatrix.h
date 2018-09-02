@@ -1,15 +1,13 @@
 #pragma once
  
-#define MAX_SIZE 10
 #include <iostream>
+#include <vector>
 
 class MyMatrix
 {
-
 private:
-
-	int m_m; // rows
-	int m_n; // colunms
+	unsigned int m_m; // rows
+	unsigned int m_n; // colunms
 	double* m_matrix = nullptr;
 	// the sizes is known.
 	// so the size is m * n
@@ -26,7 +24,8 @@ public:
 	*  The input: size of the matrix, default value, no input = def ctor
 	*  The output: new MyMatrix object
 	*************************************************************************/
-	MyMatrix(int m = 2, int n = 2, double def_value = 0);
+	MyMatrix(unsigned int m = 2 , unsigned int n = 2 , double def_value =0);
+	//MyMatrix();
 
 	// MyMatrix(int m, int n, bool rand);
 	// TODO: maybe code it?
@@ -55,7 +54,7 @@ public:
 	*  The output: int
 	*  The function operation: returns the number of rowes in the matrix
 	*************************************************************************/
-	int getM() const;
+	unsigned int getM() const;
 
 	/*************************************************************************
 	*  Function name: getN
@@ -63,7 +62,7 @@ public:
 	*  The output: int
 	*  The function operation: returns the number of colomnes in the matrix
 	*************************************************************************/
-	int getN() const;
+	unsigned int getN() const;
 
 	// operator[][] can throw "out of bounds".
 	//double& operator[](const int m, const int n);
@@ -79,7 +78,7 @@ public:
 	class Proxy {
 	private:
 		double* m_array;
-		int m_size;
+		unsigned int m_size;
 	public:
 		Proxy(double* array, int size) : m_array(array), m_size(size) { }
 		double& operator[](int index);
@@ -116,7 +115,7 @@ public:
 	*************************************************************************/
 	MyMatrix operator-(); // unary minus: new_mat = - old_mat
 						  // equal to: (-1) * mat
-	
+	// TODO: add doc of all operators, including exceptions
 	MyMatrix operator*(MyMatrix& mat2);
 
 	MyMatrix operator*(double float_const);
@@ -130,9 +129,16 @@ public:
 	// operator to check equality, like if (Mat1 == Mat2) cout << "equal".
 	// return 
 	bool operator==(MyMatrix& mat2);
-	
-	// TODO: code it :)
+
+	bool inline operator!=(MyMatrix & mat2) {
+		return !((*this) == mat2);
+	}
+
+	// TODO: code it :) (done?)
 	 friend std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print);  // print to output stream.
 										// the return is for case like: cout << 1 << 2;
 										// that equal to (cout << 1) << 2
+	 
+	 // for debugging
+	 static MyMatrix RandMatrix(int m, int n, int min = 0, int max = 20);
 };
