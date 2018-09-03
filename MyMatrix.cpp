@@ -106,7 +106,10 @@ MyMatrix MyMatrix::operator+(MyMatrix & mat2)
 	**************************************************************************************************/
 MyMatrix MyMatrix::operator-(MyMatrix & mat2) // binary (a-b)
 {
-	return (*this) + (-mat2);  // the '-' here is unary
+	MyMatrix matA = *this;
+	MyMatrix matB = -mat2;
+
+	return matA + matB ;  
 }
 
 
