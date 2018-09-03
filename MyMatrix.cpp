@@ -217,6 +217,13 @@ bool MyMatrix::operator==(MyMatrix & mat2)
 	return true;
 }
 
+
+/*******************************************************************************************
+	*  Function name: operator<<
+	*  The input:  MyMatrix object
+	*  The output: print on the screen
+	*  The function operation: print a matrix to the screen.
+	******************************************************************************************/
 std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print)
 {
 	fout << "Matrix: " << mat2print.m_m << " x " << mat2print.m_n << endl;
@@ -235,12 +242,25 @@ std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print)
 	return fout;
 }
 
+/*******************************************************************************************
+	*  Function name: operator[]
+	*  The input:  int
+	*  The output: double
+	*  The function operation: get a double from an array in the matrix.
+	******************************************************************************************/
 double& MyMatrix::Proxy::operator[](int index) {
 	if (index >= m_size)
 		throw string("out of bounds");
 	return m_array[index];
 }
 
+
+/*******************************************************************************************
+	*  Function name: operator[]
+	*  The input:  int
+	*  The output: array
+	*  The function operation: get the array  for the selected row in the matrix.
+	******************************************************************************************/
 MyMatrix::Proxy MyMatrix::operator[](const int rowIndex) const
 {			// mat[m][n]
 	if (rowIndex >= m_m)
@@ -248,8 +268,13 @@ MyMatrix::Proxy MyMatrix::operator[](const int rowIndex) const
 	return MyMatrix::Proxy(&(m_matrix[m_n * rowIndex]), m_n);
 }
 
-// static function, can be used like ctor: randMat = MyMatrix::RandMatrix(m, n);
-// need to do srand(...) in the beginning..
+
+/*******************************************************************************************
+	*  Function name: RandMatrix
+	*  The input:  int - #row, int - #columns, int - min value, int - max value
+	*  The output: MyMatrix object
+	*  The function operation: create a random matrix in the required size and range of values.
+	******************************************************************************************/
 MyMatrix MyMatrix::RandMatrix(int m, int n, int min, int max) {
 	MyMatrix retMat(m, n);
 	for (int i = 0; i < m; i++)
