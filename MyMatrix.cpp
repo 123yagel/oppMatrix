@@ -1,4 +1,3 @@
-//#include "stdafx.h"
 #include "MyMatrix.h"
 #include <iostream>
 #include <string>
@@ -106,10 +105,12 @@ MyMatrix MyMatrix::operator+(MyMatrix & mat2)
 	**************************************************************************************************/
 MyMatrix MyMatrix::operator-(MyMatrix & mat2) // binary (a-b)
 {
+	// on some compilers this not works in one line like:
+	// return (*this) - mat2;
+	// it can be solved with some special declaration, but we prefers this:
+	
 	MyMatrix matA = *this;
-	MyMatrix matB = -mat2;
-
-	return matA + matB ;  
+	return matA - mat2 ; 
 }
 
 
@@ -124,7 +125,7 @@ MyMatrix MyMatrix::operator-(MyMatrix & mat2) // binary (a-b)
 	**************************************************************************************************/
 MyMatrix MyMatrix::operator-()  
 {
-	return ((*this)*(-1));
+	return (*this) * (-1);   // (-a) <==> (-1) * a
 }
 
 /*******************************************************************************************
@@ -137,7 +138,7 @@ MyMatrix MyMatrix::operator*(double doubleConst)
 {
 	MyMatrix newMat(*this);  // copy ctor
 	int size = m_m * m_n; // temp to prevent re-calculations
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) // assumed as 1D big array
 	{
 			newMat.m_matrix[i] *= doubleConst;
 	}
@@ -159,14 +160,15 @@ MyMatrix MyMatrix::operator*(MyMatrix & mat2)
 		throw string("not suitable matrices sizes for matrix multiplication");
 	//we need to cheak the size of the matrix that we want to multiply by get or get it as argument of the operator
 
-	MyMatrix newMat(m_m, mat2.m_n, 0);
+	MyMatrix newMat(m_m, mat2.m_n, 0); // new empty matrix in the needed size
 	for (int i = 0; i < m_m; i++)
 	{
-		for (int j = 0; j < mat2.m_n; j++)  //  just m_n ?
+		for (int j = 0; j < mat2.m_n; j++) // for each cell in the new matrix mat(i,j):
 		{
-			for (int k = 0; k < m_n; k++) // the sum
+			// mewMat[i][j] = 0; // built in the ctor
+			for (int k = 0; k < m_n; k++) // sum
 			{
-				newMat[i][j] = newMat[i][j] + ((*this)[i][k] * mat2[k][j]);
+				newMat[i][j] = newMat[i][j] + ((*this)[i][k] * mat2[k][j]); // of dot product
 			}
 		}
 	}
@@ -196,20 +198,14 @@ MyMatrix & MyMatrix::operator=(MyMatrix & mat2)
 }
 
 
-/*******************************************************************************************
-	*  Function name: operator==
-	*  The input: MyMatrix object
-	*  The output: bool
-	*  The function operation: check if the 2 matrices are equal
-	******************************************************************************************/
+
 bool MyMatrix::operator==(MyMatrix & mat2)
 {
 	if (m_m != mat2.m_m || m_n != mat2.m_n)
-		throw string("inequal matrices sizes"); // it's an error..
-		//return false; 
+		throw string("unequal matrices sizes"); // after all, it's an error, and not just inequality
 	
 	int size = m_m * m_n; // temp to prevent re-calculations
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) // assumed as 1D big array
 	{
 		if (m_matrix[i] != mat2.m_matrix[i])
 			return false;
@@ -218,12 +214,7 @@ bool MyMatrix::operator==(MyMatrix & mat2)
 }
 
 
-/*******************************************************************************************
-	*  Function name: operator<<
-	*  The input:  MyMatrix object
-	*  The output: print on the screen
-	*  The function operation: print a matrix to the screen.
-	******************************************************************************************/
+
 std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print)
 {
 	fout << "Matrix: " << mat2print.m_m << " x " << mat2print.m_n << endl;
@@ -236,52 +227,38 @@ std::ostream& operator<<(std::ostream& fout, MyMatrix& mat2print)
 		{
 			fout << mat2print[i][j] << " ";
 		}
-		if (i + 1 != mat2print.m_m) fout << endl;
+		if (i + 1 != mat2print.m_m) fout << endl;  // so the closing ']' will be in the end of line
 	}
 	fout << " ]" << endl;
 	return fout;
 }
 
-/*******************************************************************************************
-	*  Function name: operator[]
-	*  The input:  int
-	*  The output: double
-	*  The function operation: get a double from an array in the matrix.
-	******************************************************************************************/
-double& MyMatrix::Proxy::operator[](int index) {
+
+// for more explanation of the Array2DOperatorHelper, look in the .h file
+double& MyMatrix::Array2DOperatorHelper::operator[](int index) {
 	if (index >= m_size)
 		throw string("out of bounds");
 	return m_array[index];
 }
 
 
-/*******************************************************************************************
-	*  Function name: operator[]
-	*  The input:  int
-	*  The output: array
-	*  The function operation: get the array  for the selected row in the matrix.
-	******************************************************************************************/
-MyMatrix::Proxy MyMatrix::operator[](const int rowIndex) const
+// for more explanation of the Array2DOperatorHelper, look in the .h file
+MyMatrix::Array2DOperatorHelper MyMatrix::operator[](const int rowIndex) const
 {			// mat[m][n]
 	if (rowIndex >= m_m)
 		throw string("out of bounds");
-	return MyMatrix::Proxy(&(m_matrix[m_n * rowIndex]), m_n);
+	return MyMatrix::Array2DOperatorHelper(&(m_matrix[m_n * rowIndex]), m_n); // then the helper have another [] operator
 }
 
 
-/*******************************************************************************************
-	*  Function name: RandMatrix
-	*  The input:  int - #row, int - #columns, int - min value, int - max value
-	*  The output: MyMatrix object
-	*  The function operation: create a random matrix in the required size and range of values.
-	******************************************************************************************/
+
 MyMatrix MyMatrix::RandMatrix(int m, int n, int min, int max) {
 	MyMatrix retMat(m, n);
 	for (int i = 0; i < m; i++)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			retMat[i][j] = min + rand() % (max - min);
+			retMat[i][j] = min + rand() % (max - min); 
 		}
 	}
 	return retMat;

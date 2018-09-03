@@ -1,10 +1,8 @@
-
 #pragma once
+
 #include "MyMatrix.h"
 
 #define NUM_OF_MATS 3
-
-class MyMatrix;
 
 class UserMenu
 {
@@ -15,21 +13,11 @@ private:
 	*  Function name: editData
 	*  The input: none
 	*  The output: none
-	*  The function operation: reating matrices (for calucate) by the user
+	*  The function operation: let the user edit the saved mats
 	*************************************************************************/
 	void editData();
-
-public:
-	/*************************************************************************
-	*  Function name: run
-	*  The input: none
-	*  The output: none
-	*  The function operation: management the  interface of the program
-	*************************************************************************/
-	void run();
-
-	/********************************************************************************************
-	*  Function name: srChooseMatNu
+/********************************************************************************************
+	*  Function name: usrChooseMatNum
 	*  The input: none
 	*  The output: int, which is number of matrix.
 	*  The function operation: return the  the number of the matrix which the user want to insert.
@@ -44,9 +32,17 @@ public:
 	************************************************************************************/
 	int printMenu();
 
-
+	// get matrix from the user
 	MyMatrix setMatrix();
-	void setSomeMatrix(int num, MyMatrix[]);
-	MyMatrix UserMenu::calucateMatrix(int, MyMatrix[], char);
+	
+	
+public:
+	/*************************************************************************
+	*  Function name: run
+	*  The input: none
+	*  The output: none
+	*  The function operation: management the  interface of the program
+	*************************************************************************/
+	void run();
 };
 

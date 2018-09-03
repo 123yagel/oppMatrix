@@ -1,12 +1,9 @@
-//#include "stdafx.h"
-#include "UserMenu.h"
 
+#include "UserMenu.h"
 #include <iostream>
 #include <string>
 
 using namespace std;
-
-// TODO: make a menu :)
 
 void UserMenu::editData()
 {
@@ -154,7 +151,7 @@ int UserMenu::usrChooseMatNum()
 	cout << "choose matrix (0-" << (NUM_OF_MATS-1) << ")";
 	cin >> mat;
 	if (mat < 0 || mat >= NUM_OF_MATS)
-		throw string("there is no matrix labled ") + std::to_string(mat);
+		throw string("there is no matrix labeled ") + std::to_string(mat);
 	return mat;
 }
 
@@ -164,7 +161,7 @@ int UserMenu::printMenu()
 	cout << "Choose action:" << endl;
 	cout << "    1: edit data" << endl;
 	cout << "    2: add matrices" << endl;
-	cout << "    3: subtruct matrices" << endl;
+	cout << "    3: subtract matrices" << endl;
 	cout << "    4: multiple matrices" << endl;
 	cout << "    5: multiple matrix by scalar" << endl;
 	cout << "    6: compare two matrices" << endl;
