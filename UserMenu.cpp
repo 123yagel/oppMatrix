@@ -1,13 +1,17 @@
 //#include "stdafx.h"
 #include "UserMenu.h"
-
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-// TODO: make a menu :)
 
+/*************************************************************************
+	*  Function name: editData
+	*  The input: none
+	*  The output: none
+	*  The function operation: seting matrices (for calucations) by the user
+	*************************************************************************/
 void UserMenu::editData()
 {
 	int mat2edit = usrChooseMatNum();
@@ -38,6 +42,14 @@ void UserMenu::editData()
 	m_mats[mat2edit] = newMatrix;
 }
 
+
+
+/*************************************************************************
+	*  Function name: run
+	*  The input: none
+	*  The output: none
+	*  The function operation: management of the interface of the program using a loop.
+	*************************************************************************/
 void UserMenu::run()
 {
 	while (true) {
@@ -148,6 +160,13 @@ void UserMenu::run()
 	}
 }
 
+
+/********************************************************************************************
+	*  Function name: usrChooseMatNu
+	*  The input: none
+	*  The output: int, which is number of the matrix.
+	*  The function operation: return the  the number of the matrix which the user wanted to insert.
+	********************************************************************************************/
 int UserMenu::usrChooseMatNum()
 {
 	int mat;
@@ -158,6 +177,13 @@ int UserMenu::usrChooseMatNum()
 	return mat;
 }
 
+
+/************************************************************************************
+	*  Function name: printMenu
+	*  The input: none
+	*  The output: int, which is the the user's choice.
+	*  The function operation: printing the user menu and getting the user's choice
+	************************************************************************************/
 int UserMenu::printMenu()
 {
 	cout << endl;
@@ -177,6 +203,14 @@ int UserMenu::printMenu()
 	return number;
 }
 
+
+
+/************************************************************************************
+	*  Function name: setMatrix
+	*  The input: none
+	*  The output: MyMatrix object
+	*  The function operation: get a matrix from the user.
+	************************************************************************************/
 MyMatrix UserMenu::setMatrix()
 {
 	unsigned int rows, columns;
@@ -193,8 +227,6 @@ MyMatrix UserMenu::setMatrix()
 		cout << "row " << (i + 1) << ": ";
 		for (int j = 0; j < columns; j++)
 		{
-			//cout << "Enter " << i << "," << j << " element="; 
-			// we don't really need this^
 
 			cin >> newMatrix[i][j];
 		}
