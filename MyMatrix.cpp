@@ -4,7 +4,12 @@
 #include <string>
 using namespace std;
 
-
+/********************************************************************************
+	*  Function name: MyMatrix (c'tor)
+	*  The input: size of the matrix (2D), default value, no input = def c'tor
+	*  The output: new MyMatrix object
+	*  The function operation: creating a new matrix whose elements has default value
+	********************************************************************************/
 MyMatrix::MyMatrix (unsigned int m, unsigned int n, double def_value)
 {
 	if (m == 0 || n == 0)
@@ -15,6 +20,12 @@ MyMatrix::MyMatrix (unsigned int m, unsigned int n, double def_value)
 	std::fill_n(m_matrix, m * n, def_value);
 }
 
+/*************************************************************************
+	* Function name: MyMatrix (copy c'tor)
+	* The input: MyMatrix object
+	* The output: new MyMatrix object
+	* The function operation: gets an exsiting matrix and creating a copy.
+	*************************************************************************/
 MyMatrix::MyMatrix(const MyMatrix& myMat)
 {
 	m_m = myMat.m_m;
@@ -23,21 +34,51 @@ MyMatrix::MyMatrix(const MyMatrix& myMat)
 	std::copy_n(myMat.m_matrix, m_m * m_n, m_matrix);
 }
 
+
+/*************************************************************************
+	* Function name: destructor
+	*  The input: none
+	*  The output: none
+	*  destructor for deleting the matrix and cleaning the memory afterwards.
+    *  The function operation: deleting the dynamic memory.
+	*************************************************************************/
 MyMatrix::~MyMatrix()
 {
 	delete[] m_matrix;
 }
 
+
+/*************************************************************************
+	*  Function name: getM
+	*  The input: none
+	*  The output: int, which is the number of rows in the matrix.
+	*  The function operation: returns the number of rowes in the matrix.
+	*************************************************************************/
 unsigned int MyMatrix::getM() const
 {
 	return m_m;
 }
 
+	/*************************************************************************
+	*  Function name: getN
+	*  The input: none
+	*  The output: int, which is the number of columns in the matrix.
+	*  The function operation: returns the number of colomnes in the matrix
+	*************************************************************************/
 unsigned int MyMatrix::getN() const
 {
 	return m_n;
 }
 
+	
+	/************************************************************************************************
+	*  Function name: operator+
+	*  The input: MyMatrix object, which has to be added to te matrix which operates the operator
+	*  The output: MyMatrix object, which is the result of the addition of the matrices.
+	*  The function operation: returns the addition of 2 matrices
+		can throw "inequal matrices sizes" for two matrices in different size , which cannot be added
+		according to the mathematical definition.
+	***********************************************************************************************/
 MyMatrix MyMatrix::operator+(MyMatrix & mat2)
 {
 	if (m_m != mat2.getM() || m_n != mat2.getN())
@@ -53,22 +94,42 @@ MyMatrix MyMatrix::operator+(MyMatrix & mat2)
 	return newMat;
 }
 
+
+
+	/*************************************************************************************************
+	*  Function name: operator-
+	*  The input: MyMatrix object, which has to be subtracted from the matrix which operates the operator
+	*  The output: MyMatrix object, which is the result of the substruction  of the matrices.
+	*  The function operation: returns the substruction of 2 matrices
+	can throw "inequal matrices sizes" for two matrices in different size , which cannot be subtracted
+	according to the mathematical definition.
+	**************************************************************************************************/
 MyMatrix MyMatrix::operator-(MyMatrix & mat2) // binary (a-b)
 {
-	MyMatrix matA = *this;
-	MyMatrix matB = -mat2;
-
-	return matA + matB ;  
-
+	return (*this) + (-mat2);  // the '-' here is unary
 }
 
-// TODO: change to private operators?
 
-MyMatrix MyMatrix::operator-()  // unary (-a)
+
+	/*************************************************************************************************
+	*  Function name: operator-
+	*  The input: none
+	*  The output: MyMatrix object, which is the result of the original matrix multiplied by -1.
+	*  The function operation: returns the substruction of 2 matrices
+	can throw "inequal matrices sizes" for two matrices in different size , which cannot be subtracted
+	according to the mathematical definition
+	**************************************************************************************************/
+MyMatrix MyMatrix::operator-()  
 {
 	return ((*this)*(-1));
 }
 
+/*******************************************************************************************
+	*  Function name: operator*
+	*  The input: double, which is the scalar that the matrix is multiplied by it.
+	*  The output: MyMatrix object
+	*  The function operation: returns the multiplication of the matrix by the scalar.
+	******************************************************************************************/
 MyMatrix MyMatrix::operator*(double doubleConst)
 {
 	MyMatrix newMat(*this);  // copy ctor
@@ -80,6 +141,15 @@ MyMatrix MyMatrix::operator*(double doubleConst)
 	return newMat;
 }
 
+
+/*******************************************************************************************
+	*  Function name: operator*
+	*  The input: MyMatrix object
+	*  The output: MyMatrix object
+	*  The function operation: returns the multiplication of 2 matrices
+	can throw "not suitable matrices sizes for matrix multiplication" for two matrices which
+	cannot be multiple according to the mathematical definition
+	******************************************************************************************/
 MyMatrix MyMatrix::operator*(MyMatrix & mat2)
 {
 	if (m_n != mat2.m_m)
@@ -100,6 +170,13 @@ MyMatrix MyMatrix::operator*(MyMatrix & mat2)
 	return newMat;
 }
 
+
+/*******************************************************************************************
+	*  Function name: operator=
+	*  The input: MyMatrix object
+	*  The output: MyMatrix object
+	*  The function operation:  making a copy of the matrix.
+	******************************************************************************************/
 MyMatrix & MyMatrix::operator=(MyMatrix & mat2)
 {
 	if (mat2.m_m != m_m || mat2.m_n != m_n)
@@ -115,6 +192,13 @@ MyMatrix & MyMatrix::operator=(MyMatrix & mat2)
 	return *this; // so we can do a = (b = c);
 }
 
+
+/*******************************************************************************************
+	*  Function name: operator==
+	*  The input: MyMatrix object
+	*  The output: bool
+	*  The function operation: check if the 2 matrices are equal
+	******************************************************************************************/
 bool MyMatrix::operator==(MyMatrix & mat2)
 {
 	if (m_m != mat2.m_m || m_n != mat2.m_n)

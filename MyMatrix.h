@@ -19,56 +19,55 @@ private:
 
 public:
 	
-	/*************************************************************************
-	*  Function name: MyMatrix (ctor)
-	*  The input: size of the matrix, default value, no input = def ctor
+	/********************************************************************************
+	*  Function name: MyMatrix (c'tor)
+	*  The input: size of the matrix, default value, no input = def c'tor
 	*  The output: new MyMatrix object
-	*************************************************************************/
+	*  The function operation: creating new matrix whose elements has default value
+	********************************************************************************/
 	MyMatrix(unsigned int m = 2 , unsigned int n = 2 , double def_value =0);
 	//MyMatrix();
-
 	// MyMatrix(int m, int n, bool rand);
 	// TODO: maybe code it?
 
 	/*************************************************************************
-	*  Function name: MyMatrix (copy ctor)
+	* Function name: MyMatrix (copy c'tor)
+	* The input: size of the matrix, default value, no input = def ctor
+	* The output: new MyMatrix object
+	* The function operation: 
 	*************************************************************************/
 	MyMatrix(const MyMatrix& myMat);
 
-	
+
 	/*************************************************************************
-	*  dtor
-	*  destructor for deleting matrix and cleaning
-								the memory afterwards.
+	* Function name: destructor
+	*  The input: none
+	*  The output: none
+	*  destructor for deleting the matrix and cleaning the memory afterwards.
+    *  The function operation: deleting the dynamic memory.
 	*************************************************************************/
 	~MyMatrix();
 
-// getters:
-
-	// set size only in the constructor.
-	// get and set values of the matrix, only using Mat[i][j]
 
 	/*************************************************************************
 	*  Function name: getM
 	*  The input: none
-	*  The output: int
-	*  The function operation: returns the number of rowes in the matrix
+	*  The output: int, which is the number of rows in the matrix.
+	*  The function operation: returns the number of rowes in the matrix.
 	*************************************************************************/
 	unsigned int getM() const;
 
 	/*************************************************************************
 	*  Function name: getN
 	*  The input: none
-	*  The output: int
+	*  The output: int, which is the number of columns in the matrix.
 	*  The function operation: returns the number of colomnes in the matrix
 	*************************************************************************/
 	unsigned int getN() const;
 
-	// operator[][] can throw "out of bounds".
-	//double& operator[](const int m, const int n);
 
 	/*************************************************************************
-	*  Function name: operator[][]
+	*  Function name: operator[][]   ???????????
 	*  The input: MyMatrix object
 	*  The output: double 
 	*  The function operation: returns the addition of 2 matrices
@@ -85,49 +84,79 @@ public:
 	};
 
 
-	// TODO: doc..
+	
 	Proxy operator[](const int rowIndex) const;
 	
-// TODO: add description: what can be thrown (as string("error")) for all operators
-	// matrix addition, substruction and multiplication can throw "dimensions not agree".
 	
-	/*************************************************************************
+	/************************************************************************************************
 	*  Function name: operator+
-	*  The input: MyMatrix object
-	*  The output: MyMatrix object
+	*  The input: MyMatrix object, which has to be added to te matrix which operates the operator
+	*  The output: MyMatrix object, which is the result of the addition of the matrices.
 	*  The function operation: returns the addition of 2 matrices
-	*************************************************************************/
+		can throw "inequal matrices sizes" for two matrices in different size , which cannot be added
+		according to the mathematical definition.
+	***********************************************************************************************/
 	MyMatrix operator+(MyMatrix& mat2);
 	
-	/*************************************************************************
+	/*************************************************************************************************
 	*  Function name: operator-
-	*  The input: MyMatrix object
-	*  The output: MyMatrix object
+	*  The input: MyMatrix object, which has to be subtracted from the matrix which operates the operator
+	*  The output: MyMatrix object, which is the result of the substruction of the matrices.
 	*  The function operation: returns the substruction of 2 matrices
-	*************************************************************************/
+	can throw "inequal matrices sizes" for two matrices in different size , which cannot be subtracted
+	according to the mathematical definition
+	**************************************************************************************************/
 	MyMatrix operator-(MyMatrix& mat2);
 	
-	/*************************************************************************
+
+	/*************************************************************************************************
+	*  Function name: operator-
+	*  The input: none
+	*  The output: MyMatrix object, which is the result of the original matrix multiplied by -1.
+	*  The function operation: returns the substruction of 2 matrices
+	can throw "inequal matrices sizes" for two matrices in different size , which cannot be subtracted
+	according to the mathematical definition
+	**************************************************************************************************/
+	MyMatrix operator-(); 
+
+   /*******************************************************************************************
 	*  Function name: operator*
 	*  The input: MyMatrix object
 	*  The output: MyMatrix object
 	*  The function operation: returns the multiplication of 2 matrices
-	*************************************************************************/
-	MyMatrix operator-(); // unary minus: new_mat = - old_mat
-						  // equal to: (-1) * mat
-	// TODO: add doc of all operators, including exceptions
+	can throw "not suitable matrices sizes for matrix multiplication" for two matrices which
+	cannot be multiple according to the mathematical definition
+	******************************************************************************************/
 	MyMatrix operator*(MyMatrix& mat2);
 
+	/*******************************************************************************************
+	*  Function name: operator*
+	*  The input: double, which is the scalar that the matrix is multiplied by it.
+	*  The output: MyMatrix object
+	*  The function operation: returns the multiplication of the matrix by the scalar.
+	******************************************************************************************/
 	MyMatrix operator*(double float_const);
 
 	friend inline MyMatrix operator*(double float_const, MyMatrix& mat) { return mat * float_const; }
 	// 7 * mat <==> mat * 7
 	// inline, so implementaion here
 
-	MyMatrix& operator=(MyMatrix& mat2);  // the return value is needed in a = (b = c);
+
+	/*******************************************************************************************
+	*  Function name: operator=
+	*  The input: MyMatrix object
+	*  The output: MyMatrix object
+	*  The function operation:  making a copy of the matrix.
+	******************************************************************************************/
+	MyMatrix& operator=(MyMatrix& mat2);  
 	
-	// operator to check equality, like if (Mat1 == Mat2) cout << "equal".
-	// return 
+
+	/*******************************************************************************************
+	*  Function name: operator==
+	*  The input: MyMatrix object
+	*  The output: bool
+	*  The function operation: check if the 2 matrices are equal
+	******************************************************************************************/
 	bool operator==(MyMatrix& mat2);
 
 	bool inline operator!=(MyMatrix & mat2) {

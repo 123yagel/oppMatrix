@@ -8,8 +8,7 @@ using namespace std;
 
 // TODO: make a menu :)
 
-
-void UserMenu::edit_data()
+void UserMenu::editData()
 {
 	int mat2edit = usrChooseMatNum();
 	unsigned int m, n;
@@ -24,6 +23,7 @@ void UserMenu::edit_data()
 	cin >> c;
 	if (c == 'y' || c == 'Y') {
 		m_mats[mat2edit] = MyMatrix::RandMatrix(m, n);
+		cout << m_mats[mat2edit] << endl;
 		return;
 	}
 
@@ -45,7 +45,7 @@ void UserMenu::run()
 			switch (printMenu())
 			{
 			case 1:// edit data
-				edit_data();
+				editData();
 				break;
 			case 2:// add matrix
 				cout << "1: mat[0] = mat[0] + mat[1]" << endl;
